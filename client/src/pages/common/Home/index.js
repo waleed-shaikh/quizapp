@@ -50,25 +50,28 @@ function Home() {
       }
   }, [width]);
   return (
-    user && (
+    <>
+    <div>
+
+    {user && (
       <div>
-        <PageTitle title={`Hi ${(user.name).charAt(0).toUpperCase() + (user.name).slice(1)}, Welcome to WaleedQuiz`} />
+        <PageTitle title={`Hi ${(user?.name).charAt(0).toUpperCase() + (user?.name).slice(1)}, Welcome to WaleedQuiz`} />
         <div className="divider"></div>
         <Row gutter={[16, 16]} className=''>
-          {exams.map((exam) => (
+          {exams?.map((exam) => (
             <Col span={span} className='d-flex'>
               <div className="card-lg flex flex-col gap-1 p-2">
                 <h1 className="text-2xl">{exam?.name}</h1>
 
-                <h1 className="text-md">Category : {exam.category}</h1>
+                <h1 className="text-md">Category : {exam?.category}</h1>
 
-                <h1 className="text-md">Total Marks : {exam.totalMarks}</h1>
-                <h1 className="text-md">Passing Marks : {exam.passingMarks}</h1>
-                <h1 className="text-md">Duration : {exam.duration}</h1>
+                <h1 className="text-md">Total Marks : {exam?.totalMarks}</h1>
+                <h1 className="text-md">Passing Marks : {exam?.passingMarks}</h1>
+                <h1 className="text-md">Duration : {exam?.duration}</h1>
 
                 <button
                   className="primary-outlined-btn"
-                  onClick={() => navigate(`/user/write-exam/${exam._id}`)}
+                  onClick={() => navigate(`/user/write-exam/${exam?._id}`)}
                 >
                   Start Exam
                 </button>
@@ -77,7 +80,12 @@ function Home() {
           ))}
         </Row>
       </div>
-    )
+    )}
+    </div>
+    <div className="text-center footer">
+      <h1 className="text-sm">&#169; Waleed Shaikh</h1>
+    </div>
+    </>
   );
 }
 

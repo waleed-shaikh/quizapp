@@ -142,8 +142,8 @@ function ProtectedRoute({ children }) {
     };
   }, []);
   useEffect(() => {
-      if (width < 600) {
-        document.getElementById('navbar').style.display = 'block'
+    if (width < 600) {
+      document.getElementById('navbar').style.display = 'block'
         document.getElementById('sidebar').style.display = 'none'
         } else {
           document.getElementById('sidebar').style.display = 'block'
@@ -151,6 +151,7 @@ function ProtectedRoute({ children }) {
       }
 }, [width]);
   return (
+    <>
     <div className="layout">
       <div className="flex gap-2 w-full h-full h-100">
         <div className="sidebar" id="sidebar">
@@ -170,52 +171,54 @@ function ProtectedRoute({ children }) {
               );
             })}
           </div>
-        </div>
+          </div>
         
-        <div className="body">
-          <div className="header flex justify-between">
-            {!collapsed && (
-              <i
-                className="ri-close-line"
-                onClick={() => setCollapsed(true)}
-              ></i>
-            )}
-            {collapsed && (
-              <i
-                className="ri-menu-line"
-                onClick={() => setCollapsed(false)}
-              ></i>
-            )}
-            <h1 className="text-2xl text-white">WALEED QUIZ</h1>
-            <div>
-              <div className="flex gap-1 items-center">
-                <h1 className="text-md text-white">{user?.name}</h1>
+          <div className="body">
+            <div className="header flex justify-between">
+              {!collapsed && (
+                <i
+                  className="ri-close-line"
+                  onClick={() => setCollapsed(true)}
+                ></i>
+              )}
+              {collapsed && (
+                <i
+                  className="ri-menu-line"
+                  onClick={() => setCollapsed(false)}
+                ></i>
+              )}
+              <h1 className="text-2xl text-white">WALEED QUIZ</h1>
+              <div>
+                <div className="flex gap-1 items-center">
+                  <h1 className="text-md text-white">{user?.name}</h1>
+                </div>
+                <span>Role : {user?.isAdmin ? "Admin" : "User"}</span>
               </div>
-              <span>Role : {user?.isAdmin ? "Admin" : "User"}</span>
+            </div>
+            <div className="navbar" id="navbar">
+            <div className="menu">
+              {menu.map((item, index) => {
+                return (
+                  <div
+                    className={`menu-item ${
+                      getIsActiveOrNot(item.paths) && "active-menu-item"
+                    }`}
+                    key={index}
+                    onClick={item.onClick}
+                  >
+                    {item.icon}
+                    {!collapsed && <span>{item.title}</span>}
+                  </div>
+                );
+              })}
             </div>
           </div>
-          <div className="navbar" id="navbar">
-          <div className="menu">
-            {menu.map((item, index) => {
-              return (
-                <div
-                  className={`menu-item ${
-                    getIsActiveOrNot(item.paths) && "active-menu-item"
-                  }`}
-                  key={index}
-                  onClick={item.onClick}
-                >
-                  {item.icon}
-                  {!collapsed && <span>{item.title}</span>}
-                </div>
-              );
-            })}
+          <div className="content">{children}
           </div>
-        </div>
-          <div className="content">{children}</div>
         </div>
       </div>
     </div>
+    </>
   );
 }
 
